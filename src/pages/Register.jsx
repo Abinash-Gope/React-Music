@@ -4,8 +4,7 @@ import { Link } from "react-router";
 import { AuthContextData } from "../context/AuthContext";
 
 const Register = () => {
-
-  const {registerUser} =  useContext(AuthContextData);
+  const { registerUser } = useContext(AuthContextData);
   const [role, setRole] = useState("listener");
 
   const {
@@ -18,7 +17,15 @@ const Register = () => {
 
   const submitHandler = (data) => {
     const formData = { ...data, role };
-    console.log(formData);
+    const result = registerUser(formData);
+    console.log(result);
+
+    if (result.success) {
+      alert(result.message);
+      reset();
+    } else {
+      alert(result.message);
+    }
   };
 
   return (
@@ -50,7 +57,7 @@ const Register = () => {
                 }}
                 type="button"
                 id="role-listener"
-                className={`${role === "listener" ? "active" : ''} role-card flex flex-col items-center justify-center p-3.5 rounded-xl border border-outline-variant bg-surface-container-low hover:bg-surface-container-high group cursor-pointer`}
+                className={`${role === "listener" ? "active" : ""} role-card flex flex-col items-center justify-center p-3.5 rounded-xl border border-outline-variant bg-surface-container-low hover:bg-surface-container-high group cursor-pointer`}
               >
                 <span
                   className="material-symbols-outlined text-primary text-2xl group-hover:scale-110 transition-transform mb-1"
@@ -58,8 +65,12 @@ const Register = () => {
                 >
                   music_note
                 </span>
-                <span className={`font-label-sm text-xs uppercase tracking-wider font-semibold ${role === "listener" ? "text-on-surface" : "text-on-surface-variant"
-                  }`}>
+                <span
+                  className={`font-label-sm text-xs uppercase tracking-wider font-semibold ${role === "listener"
+                      ? "text-on-surface"
+                      : "text-on-surface-variant"
+                    }`}
+                >
                   Listener
                 </span>
               </button>
