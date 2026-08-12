@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router";
+import { AuthContextData } from "../context/AuthContext";
 
 const Register = () => {
+
+  const {registerUser} =  useContext(AuthContextData);
   const [role, setRole] = useState("listener");
 
   const {
@@ -21,7 +24,7 @@ const Register = () => {
   return (
     <div className="flex items-center justify-center min-h-screen p-4 sm:p-6 font-body-md text-body-md selection:bg-primary/30 relative">
       <div className="bg-mesh"></div>
-      <main className="w-full max-w-[500px] z-10 my-auto py-4">
+      <main className="w-full max-w-125 z-10 my-auto py-4">
         {/* Brand Identity */}
         <div className="text-center mb-5">
           <h1 className="font-headline-md text-3xl font-bold text-primary tracking-tight mb-1">
@@ -195,7 +198,7 @@ const Register = () => {
             {/* Register Button */}
             <button
               type="submit"
-              className="mt-2 w-full py-3.5 rounded-full bg-gradient-to-r from-primary to-[#6d3bd7] text-on-primary font-headline-md text-sm font-bold shadow-lg shadow-primary/20 hover:opacity-90 active:scale-[0.98] transition-all flex items-center justify-center gap-2 cursor-pointer"
+              className="mt-2 w-full py-3.5 rounded-full bg-linear-to-r from-primary to-inverse-primary text-on-primary font-headline-md text-sm font-bold shadow-lg shadow-primary/20 hover:opacity-90 active:scale-[0.98] transition-all flex items-center justify-center gap-2 cursor-pointer"
             >
               Register
               <span
