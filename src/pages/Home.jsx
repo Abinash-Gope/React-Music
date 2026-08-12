@@ -2,8 +2,8 @@ import React, { useContext } from 'react'
 import {AuthContextData} from '../context/AuthContext'
 
 const Home = () => {
-  const data = useContext(AuthContextData)
-  console.log(data)
+  const { registerUser } = useContext(AuthContextData)
+  console.log(registerUser)
   return (
     <div>Home</div>
   )
