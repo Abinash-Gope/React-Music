@@ -3,11 +3,22 @@ import React, { createContext, useState } from "react";
 export const AuthContextData = createContext();
 
 const AuthContext = ({ children }) => {
-  const [logUser, setLogUser] = useState(null);
+  const [logUser, setLogUser] = useState(() => {
+    try {
+      const saved = localStorage.getItem("logUser");
+      return saved ? JSON.parse(saved) : null;
+    } catch {
+      return null;
+    }
+  });
+
   const registerUser = (newUser) => {
     const users = JSON.parse(localStorage.getItem("users") || "[]");
+    const formattedEmail = newUser.email ? newUser.email.trim().toLowerCase() : "";
+
     const alreadyExist = users.find((user) => {
-      return user.email === newUser.email;
+      const existingEmail = user.email ? user.email.trim().toLowerCase() : "";
+      return existingEmail === formattedEmail;
     });
 
     if (alreadyExist) {
@@ -17,7 +28,12 @@ const AuthContext = ({ children }) => {
       };
     }
 
-    const updateUser = [...users, newUser];
+    const userToSave = {
+      ...newUser,
+      email: formattedEmail,
+    };
+
+    const updateUser = [...users, userToSave];
     localStorage.setItem("users", JSON.stringify(updateUser));
 
     return {
@@ -28,9 +44,11 @@ const AuthContext = ({ children }) => {
 
   const loginUser = (email, password) => {
     const users = JSON.parse(localStorage.getItem("users") || "[]");
+    const searchEmail = email ? email.trim().toLowerCase() : "";
 
     const alreadyExist = users.find((user) => {
-      return user.email === email && user.password === password;
+      const existingEmail = user.email ? user.email.trim().toLowerCase() : "";
+      return existingEmail === searchEmail && user.password === password;
     });
 
     if (!alreadyExist) {
@@ -50,8 +68,13 @@ const AuthContext = ({ children }) => {
     };
   };
 
+  const logoutUser = () => {
+    setLogUser(null);
+    localStorage.removeItem("logUser");
+  };
+
   return (
-    <AuthContextData.Provider value={{ registerUser, loginUser, logUser }}>
+    <AuthContextData.Provider value={{ registerUser, loginUser, logoutUser, logUser }}>
       {children}
     </AuthContextData.Provider>
   );

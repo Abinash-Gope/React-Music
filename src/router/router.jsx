@@ -8,27 +8,27 @@ import ArtistDashboard from "../pages/ArtistDashboard";
 
 const router = createBrowserRouter([
     {
-        path:"/",
-        Element: <MainLayout />,
-        children:[
+        path: "/",
+        element: <MainLayout />,
+        children: [
             {
-                index:true,
+                index: true,
                 element: <Home />
             },
             {
-                path:"favrouite",
+                path: "favrouite",
                 element: <Favrouite />
             },
             {
-                path:"login",
+                path: "login",
                 element: <Login />
             },
             {
-                path:"register",
+                path: "register",
                 element: <Register />
             },
             {
-                path:"artist-dashboard",
+                path: "artist-dashboard",
                 element: <ArtistDashboard />
             },
         ]
