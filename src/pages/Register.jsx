@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router";
 import { AuthContextData } from "../context/AuthContext";
+import { toast } from "react-toastify";
 
 const Register = () => {
   const { registerUser } = useContext(AuthContextData);
@@ -27,11 +28,11 @@ const Register = () => {
     console.log(result);
 
     if (result.success) {
-      alert(result.message);
+      toast.success(result.message)
       reset();
       navigate("/login");
     } else {
-      alert(result.message);
+      toast.error(result.message)
     }
   };
 

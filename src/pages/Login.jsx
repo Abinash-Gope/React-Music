@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router";
 import { AuthContextData } from "../context/AuthContext";
 import heroHeadphones from "../assets/hero_headphones.png";
+import { toast, ToastContainer } from 'react-toastify';
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -25,9 +26,11 @@ const Login = () => {
     console.log("Login Submitted:", data);
     const response = loginUser(data.email, data.password)
     if (!response.success) {
-      alert(response.message)
+      toast.error(response.message)
       return;
     }
+
+    toast.success(response.message);
 
     if (response.user?.role === "artist") {
       navigate("/artist-dashboard");
