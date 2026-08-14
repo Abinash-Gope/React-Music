@@ -1,10 +1,11 @@
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { AuthContextData } from "../context/AuthContext";
 
 const Register = () => {
   const { registerUser } = useContext(AuthContextData);
+  const navigate = useNavigate();
 
   const {
     handleSubmit,
@@ -28,6 +29,7 @@ const Register = () => {
     if (result.success) {
       alert(result.message);
       reset();
+      navigate("/login");
     } else {
       alert(result.message);
     }
@@ -60,19 +62,26 @@ const Register = () => {
                 onClick={() => setValue("role", "listener")}
                 type="button"
                 id="role-listener"
-                className={`${role === "listener" ? "active" : ""
-                  } role-card flex flex-col items-center justify-center p-3.5 rounded-xl border border-outline-variant bg-surface-container-low hover:bg-surface-container-high group cursor-pointer`}
+                className={`${
+                  role === "listener" ? "active" : ""
+                } role-card flex flex-col items-center justify-center p-3.5 rounded-xl border border-outline-variant bg-surface-container-low hover:bg-surface-container-high group cursor-pointer`}
               >
                 <span
-                  className={`material-symbols-outlined text-2xl group-hover:scale-110 transition-transform mb-1 ${role === "listener" ? "text-primary" : "text-on-surface-variant"
-                    }`}
+                  className={`material-symbols-outlined text-2xl group-hover:scale-110 transition-transform mb-1 ${
+                    role === "listener"
+                      ? "text-primary"
+                      : "text-on-surface-variant"
+                  }`}
                   data-icon="music_note"
                 >
                   music_note
                 </span>
                 <span
-                  className={`font-label-sm text-xs uppercase tracking-wider font-semibold ${role === "listener" ? "text-on-surface" : "text-on-surface-variant"
-                    }`}
+                  className={`font-label-sm text-xs uppercase tracking-wider font-semibold ${
+                    role === "listener"
+                      ? "text-on-surface"
+                      : "text-on-surface-variant"
+                  }`}
                 >
                   Listener
                 </span>
@@ -82,19 +91,26 @@ const Register = () => {
                 onClick={() => setValue("role", "artist")}
                 type="button"
                 id="role-artist"
-                className={`${role === "artist" ? "active" : ""
-                  } role-card flex flex-col items-center justify-center p-3.5 rounded-xl border border-outline-variant bg-surface-container-low hover:bg-surface-container-high group cursor-pointer`}
+                className={`${
+                  role === "artist" ? "active" : ""
+                } role-card flex flex-col items-center justify-center p-3.5 rounded-xl border border-outline-variant bg-surface-container-low hover:bg-surface-container-high group cursor-pointer`}
               >
                 <span
-                  className={`material-symbols-outlined text-2xl group-hover:scale-110 transition-transform mb-1 ${role === "artist" ? "text-primary" : "text-on-surface-variant"
-                    }`}
+                  className={`material-symbols-outlined text-2xl group-hover:scale-110 transition-transform mb-1 ${
+                    role === "artist"
+                      ? "text-primary"
+                      : "text-on-surface-variant"
+                  }`}
                   data-icon="mic"
                 >
                   mic
                 </span>
                 <span
-                  className={`font-label-sm text-xs uppercase tracking-wider font-semibold ${role === "artist" ? "text-on-surface" : "text-on-surface-variant"
-                    }`}
+                  className={`font-label-sm text-xs uppercase tracking-wider font-semibold ${
+                    role === "artist"
+                      ? "text-on-surface"
+                      : "text-on-surface-variant"
+                  }`}
                 >
                   Artist
                 </span>
@@ -266,4 +282,3 @@ const Register = () => {
 };
 
 export default Register;
-
